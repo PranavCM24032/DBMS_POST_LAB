@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura CTMS | Permanent Persistence Studio</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SQL.js (Updated to 1.10.3) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+    <!-- Local Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <nav class="hdr">
+        <div class="logo"><i class="fas fa-atom"></i> AURA CTMS PERMANENT</div>
+        <div style="display:flex; align-items:center; gap:20px;">
+            <div id="stat" class="status-pill"><i class="fas fa-link"></i> DISCONNECTED</div>
+            <button class="btn-sync" onclick="downloadDB()" style="background:rgba(255,255,255,0.05); color:white; border:1px solid var(--border);"><i class="fas fa-download"></i> EXPORT SQL</button>
+            <button class="btn-sync" onclick="forceSync()"><i class="fas fa-sync-alt"></i> FORCE RELOAD FILE</button>
+        </div>
+    </nav>
+
+    <div class="main">
+        <div class="sidebar">
+            <h4>Clinical Entities</h4>
+            <div id="sideList"></div>
+        </div>
+
+        <div class="workspace">
+            <div class="tabs">
+                <div class="tab active" id="tExp" onclick="setMode('exp')">Data Explorer</div>
+                <div class="tab" id="tStd" onclick="setMode('std')">Analytical Studio Pro</div>
+            </div>
+
+            <div id="secExp">
+                <div class="view-hdr">
+                    <div>
+                        <h2 id="curTitle">Connect Data</h2>
+                        <p style="color:var(--dim); font-size:0.9rem; margin-top:5px;">Live Persistence to
+                            clinical_trial_schema.sql</p>
+                    </div>
+                    <div id="curTools"></div>
+                </div>
+                <div class="table-box">
+                    <table class="grid" id="mainGrid">
+                        <thead id="gridHead"></thead>
+                        <tbody id="gridBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="secStd" style="display:none;">
+                <div class="studio">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:800; color:var(--accent); font-size:0.75rem;">SQL PERMANENCE
+                            EDITOR</span>
+                        <button class="btn-plus" onclick="runStudio()"><i class="fas fa-play me-2"></i> EXECUTE &
+                            PERSIST</button>
+                    </div>
+                    <textarea id="code" spellcheck="false"
+                        placeholder="-- Enter SQL. Changes will be saved to your file."></textarea>
+                </div>
+                <div class="table-box" id="resBox" style="display:none; margin-top:40px;">
+                    <table class="grid" id="resGrid">
+                        <thead id="resHead"></thead>
+                        <tbody id="resBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Logic -->
+    <script src="script.js"></script>
+</body>
+
+</html>
